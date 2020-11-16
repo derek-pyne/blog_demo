@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: ${JDBC_DATABASE_URL:jdbc:postgresql://localhost:5432/blog}
+    username: ${JDBC_DATABASE_USERNAME:postgres}
+    password: ${JDBC_DATABASE_PASSWORD:postgres}
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog.xml
+  output:
+    ansi:
+      enabled: ALWAYS

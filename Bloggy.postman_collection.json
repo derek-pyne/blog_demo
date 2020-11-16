@@ -1,0 +1,278 @@
+{
+	"info": {
+		"_postman_id": "28590b47-c353-4e88-a262-a2312d3c47df",
+		"name": "Bloggy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "HelloWorld",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1010eee2-e46c-4cdd-8451-45b384f18ff6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{bloggy_url}}/hello",
+					"host": [
+						"{{bloggy_url}}"
+					],
+					"path": [
+						"hello"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Blog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dc8f9291-e787-4917-bfc0-390e5f9fabdb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Checking blog properties\", function () {",
+							"    pm.expect(jsonData.name).to.eql(\"Blogger the Blog\");",
+							"});",
+							"",
+							"pm.environment.set(\"blog_id\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Blogger the Blog",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bloggy_url}}/blog",
+					"host": [
+						"{{bloggy_url}}"
+					],
+					"path": [
+						"blog"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Blog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0870eac6-d25d-475a-b089-dddd8173e1f6",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{bloggy_url}}/blog/{{blog_id}}",
+					"host": [
+						"{{bloggy_url}}"
+					],
+					"path": [
+						"blog",
+						"{{blog_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Blogs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "09e0b5d2-5aca-4f2a-ad9f-95001aaebdaf",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+							"",
+							"pm.test(\"Checking Blog present\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Blogger the Blog\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{bloggy_url}}/blog/all",
+					"host": [
+						"{{bloggy_url}}"
+					],
+					"path": [
+						"blog",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "84d1db88-6e74-4d70-8dad-fbad531c230b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+							"",
+							"var jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Checking post properties\", function () {",
+							"    pm.expect(jsonData.title).to.eql(\"Best post in the world\");",
+							"    pm.expect(jsonData.body).to.eql(\"Once upon a time...\");",
+							"});",
+							"",
+							"pm.environment.set(\"post_id\", jsonData.id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "title",
+							"value": "Best post in the world",
+							"type": "text"
+						},
+						{
+							"key": "body",
+							"value": "Once upon a time...",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{bloggy_url}}/blog/{{blog_id}}/post",
+					"host": [
+						"{{bloggy_url}}"
+					],
+					"path": [
+						"blog",
+						"{{blog_id}}",
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2cf90bc1-210f-4909-99d1-c67c66d7ac04",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{bloggy_url}}/blog/{{blog_id}}/post/{{post_id}}",
+					"host": [
+						"{{bloggy_url}}"
+					],
+					"path": [
+						"blog",
+						"{{blog_id}}",
+						"post",
+						"{{post_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Blog",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6360e2ce-0bfd-4e1b-b4e3-2cec4a5728e1",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{bloggy_url}}/blog/{{blog_id}}",
+					"host": [
+						"{{bloggy_url}}"
+					],
+					"path": [
+						"blog",
+						"{{blog_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
